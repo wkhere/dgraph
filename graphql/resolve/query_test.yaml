@@ -820,12 +820,8 @@
       }
     }
 
-<<<<<<< HEAD
 
 - name: "eq Filter gets rewritten as root func"
-=======
-- name: "Filter gets rewritten as @filter"
->>>>>>> 69c83890a (Feat(GraphQL): This PR allows @id field in interface to be unique across all the implementing types. (#7710))
   gqlquery: |
     query {
       queryAuthor(filter: { name: { eq: "A. N. Author" } }) {
