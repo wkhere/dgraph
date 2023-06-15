@@ -1248,8 +1248,8 @@ func mutationFromFragment(
 }
 
 func checkXIDExistsQuery(xidVariable, xidString, xidPredicate string, typ schema.Type,
-	interfaceType schema.Type) *gql.GraphQuery {
-	qry := &gql.GraphQuery{
+	interfaceType schema.Type) *dql.GraphQuery {
+	qry := &dql.GraphQuery{
 		Attr: xidVariable,
 		Func: &dql.Function{
 			Name: "eq",
