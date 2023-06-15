@@ -1902,6 +1902,7 @@ func existenceQueries(
 						queryInterface := checkXIDExistsQuery(varInterface, xidString, xid.Name(),
 							typ, interfaceTyp)
 						ret = append(ret, queryInterface)
+						retTypes = append(retTypes, interfaceTyp.DgraphName())
 					}
 					// Don't return just over here as there maybe more nodes in the children tree.
 				}
