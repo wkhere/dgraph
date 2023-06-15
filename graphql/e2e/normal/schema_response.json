@@ -1515,17 +1515,6 @@
     {
       "fields": [
         {
-          "name": "Person.name"
-        },
-        {
-          "name": "Person.profession"
-        }
-      ],
-      "name": "Person"
-    },
-    {
-      "fields": [
-        {
           "name": "Member.name"
         },
         {
