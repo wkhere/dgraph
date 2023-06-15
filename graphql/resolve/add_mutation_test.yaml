@@ -1153,14 +1153,17 @@
     }
   dgquery: |-
     query {
-      LibraryMember_1(func: eq(Member.name, "Alice")) @filter(type(LibraryMember)) {
+      LibraryMember_1(func: eq(Member.name, "Alice")) {
         uid
+        dgraph.type
       }
-      LibraryMember_2(func: eq(Member.refID, "101")) @filter(type(LibraryMember)) {
+      LibraryMember_2(func: eq(Member.refID, "101")) {
         uid
+        dgraph.type
       }
-      LibraryMember_3(func: eq(Member.refID, "101")) @filter(type(Member)) {
+      LibraryMember_3(func: eq(Member.refID, "101")) {
         uid
+        dgraph.type
       }
     }
   dgmutations:
@@ -1206,14 +1209,17 @@
     }
   dgquery: |-
     query {
-      LibraryMember_1(func: eq(Member.name, "Alice")) @filter(type(LibraryMember)) {
+      LibraryMember_1(func: eq(Member.name, "Alice")) {
         uid
+        dgraph.type
       }
-      LibraryMember_2(func: eq(Member.refID, "101")) @filter(type(LibraryMember)) {
+      LibraryMember_2(func: eq(Member.refID, "101")) {
         uid
+        dgraph.type
       }
-      LibraryMember_3(func: eq(Member.refID, "101")) @filter(type(Member)) {
+      LibraryMember_3(func: eq(Member.refID, "101")) {
         uid
+        dgraph.type
       }
     }
   qnametouid: |-
@@ -1251,14 +1257,17 @@
     }
   dgquery: |-
     query {
-      LibraryMember_1(func: eq(Member.name, "Alice")) @filter(type(LibraryMember)) {
+      LibraryMember_1(func: eq(Member.name, "Alice")) {
         uid
+        dgraph.type
       }
-      LibraryMember_2(func: eq(Member.refID, "101")) @filter(type(LibraryMember)) {
+      LibraryMember_2(func: eq(Member.refID, "101")) {
         uid
+        dgraph.type
       }
-      LibraryMember_3(func: eq(Member.refID, "101")) @filter(type(Member)) {
+      LibraryMember_3(func: eq(Member.refID, "101")) {
         uid
+        dgraph.type
       }
     }
   qnametouid: |-
@@ -1296,14 +1305,17 @@
     }
   dgquery: |-
     query {
-      LibraryMember_1(func: eq(Member.name, "Alice")) @filter(type(LibraryMember)) {
+      LibraryMember_1(func: eq(Member.name, "Alice")) {
         uid
+        dgraph.type
       }
-      LibraryMember_2(func: eq(Member.refID, "101")) @filter(type(LibraryMember)) {
+      LibraryMember_2(func: eq(Member.refID, "101")) {
         uid
+        dgraph.type
       }
-      LibraryMember_3(func: eq(Member.refID, "101")) @filter(type(Member)) {
+      LibraryMember_3(func: eq(Member.refID, "101")) {
         uid
+        dgraph.type
       }
     }
   qnametouid: |-
@@ -1352,14 +1364,17 @@
     }
   dgquery: |-
     query {
-      LibraryMember_1(func: eq(Member.name, "Alice")) @filter(type(LibraryMember)) {
+      LibraryMember_1(func: eq(Member.name, "Alice")) {
         uid
+        dgraph.type
       }
-      LibraryMember_2(func: eq(Member.refID, "101")) @filter(type(LibraryMember)) {
+      LibraryMember_2(func: eq(Member.refID, "101")) {
         uid
+        dgraph.type
       }
-      LibraryMember_3(func: eq(Member.refID, "101")) @filter(type(Member)) {
+      LibraryMember_3(func: eq(Member.refID, "101")) {
         uid
+        dgraph.type
       }
     }
   qnametouid: |-
@@ -1403,17 +1418,21 @@
     }
   dgquery: |-
     query {
-      LibraryManager_1(func: eq(LibraryManager.name, "Alice")) @filter(type(LibraryManager)) {
+      LibraryManager_1(func: eq(LibraryManager.name, "Alice")) {
         uid
+        dgraph.type
       }
-      LibraryMember_2(func: eq(Member.name, "Bob")) @filter(type(LibraryMember)) {
+      LibraryMember_2(func: eq(Member.name, "Bob")) {
         uid
+        dgraph.type
       }
-      LibraryMember_3(func: eq(Member.refID, "101")) @filter(type(LibraryMember)) {
+      LibraryMember_3(func: eq(Member.refID, "101")) {
         uid
+        dgraph.type
       }
-      LibraryMember_4(func: eq(Member.refID, "101")) @filter(type(Member)) {
+      LibraryMember_4(func: eq(Member.refID, "101")) {
         uid
+        dgraph.type
       }
     }
   dgmutations:
@@ -1472,17 +1491,21 @@
     }
   dgquery: |-
     query {
-      LibraryManager_1(func: eq(LibraryManager.name, "Alice")) @filter(type(LibraryManager)) {
+      LibraryManager_1(func: eq(LibraryManager.name, "Alice")) {
         uid
+        dgraph.type
       }
-      LibraryMember_2(func: eq(Member.name, "Bob")) @filter(type(LibraryMember)) {
+      LibraryMember_2(func: eq(Member.name, "Bob")) {
         uid
+        dgraph.type
       }
-      LibraryMember_3(func: eq(Member.refID, "101")) @filter(type(LibraryMember)) {
+      LibraryMember_3(func: eq(Member.refID, "101")) {
         uid
+        dgraph.type
       }
-      LibraryMember_4(func: eq(Member.refID, "101")) @filter(type(Member)) {
+      LibraryMember_4(func: eq(Member.refID, "101")) {
         uid
+        dgraph.type
       }
     }
   qnametouid: |-
@@ -1525,17 +1548,21 @@
     }
   dgquery: |-
     query {
-      LibraryManager_1(func: eq(LibraryManager.name, "Alice")) @filter(type(LibraryManager)) {
+      LibraryManager_1(func: eq(LibraryManager.name, "Alice")) {
         uid
+        dgraph.type
       }
-      LibraryMember_2(func: eq(Member.name, "Bob")) @filter(type(LibraryMember)) {
+      LibraryMember_2(func: eq(Member.name, "Bob")) {
         uid
+        dgraph.type
       }
-      LibraryMember_3(func: eq(Member.refID, "101")) @filter(type(LibraryMember)) {
+      LibraryMember_3(func: eq(Member.refID, "101")) {
         uid
+        dgraph.type
       }
-      LibraryMember_4(func: eq(Member.refID, "101")) @filter(type(Member)) {
+      LibraryMember_4(func: eq(Member.refID, "101")) {
         uid
+        dgraph.type
       }
     }
   qnametouid: |-
@@ -1586,23 +1613,29 @@
     }
   dgquery: |-
     query {
-      SportsMember_1(func: eq(Member.name, "Alice")) @filter(type(SportsMember)) {
+      SportsMember_1(func: eq(Member.name, "Alice")) {
         uid
+        dgraph.type
       }
-      SportsMember_2(func: eq(Member.refID, "101")) @filter(type(SportsMember)) {
+      SportsMember_2(func: eq(Member.refID, "101")) {
         uid
+        dgraph.type
       }
-      SportsMember_3(func: eq(Member.refID, "101")) @filter(type(Member)) {
+      SportsMember_3(func: eq(Member.refID, "101")) {
         uid
+        dgraph.type
       }
-      SportsMember_4(func: eq(Team.teamID, "T01")) @filter(type(SportsMember)) {
+      SportsMember_4(func: eq(Team.teamID, "T01")) {
         uid
+        dgraph.type
       }
-      SportsMember_5(func: eq(Team.teamID, "T01")) @filter(type(Team)) {
+      SportsMember_5(func: eq(Team.teamID, "T01")) {
         uid
+        dgraph.type
       }
-      SportsMember_6(func: eq(Team.teamName, "GraphQL")) @filter(type(SportsMember)) {
+      SportsMember_6(func: eq(Team.teamName, "GraphQL")) {
         uid
+        dgraph.type
       }
     }
   dgmutations:

@@ -1258,7 +1258,7 @@ func checkXIDExistsQuery(xidVariable, xidString, xidPredicate string, typ schema
 				{Value: maybeQuoteArg("eq", xidString)},
 			},
 		},
-		Children: []*dql.GraphQuery{{Attr: "uid"}},
+		Children: []*dql.GraphQuery{{Attr: "uid"}, {Attr: "dgraph.type"}},
 	}
 
 	return qry
@@ -1891,6 +1891,7 @@ func existenceQueries(
 					// encountered this variable, the query is added only once per variable.
 					query := checkXIDExistsQuery(variable, xidString, xid.Name(), typ, nil)
 					ret = append(ret, query)
+					retTypes = append(retTypes, typ.DgraphName())
 
 					// Add one more existence query if given xid field is inherited from interface and has
 					// interface argument set. This is added to ensure that this xid is unique across all the
