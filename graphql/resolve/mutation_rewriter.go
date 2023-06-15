@@ -1258,16 +1258,9 @@ func checkXIDExistsQuery(xidVariable, xidString, xidPredicate string, typ schema
 				{Value: maybeQuoteArg("eq", xidString)},
 			},
 		},
-		Children: []*dql.GraphQuery{{Attr: "uid"}, {Attr: "dgraph.type"}},
+		Children: []*dql.GraphQuery{{Attr: "uid"}},
 	}
 
-	// Below filter is added to generate existence query for interface
-	// If given xid field is inherited from interface and
-	// have interface arg set then we add interface type in filter
-	if interfaceType != nil {
-		typ = interfaceType
-	}
-	addTypeFilter(qry, typ)
 	return qry
 }
 
