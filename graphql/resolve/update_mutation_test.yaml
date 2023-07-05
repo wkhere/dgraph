@@ -538,7 +538,7 @@
     }
   qnametouid: |
     {
-      "Post_1": "0x456"
+      "Post_1": {"uid": "0x456", "dgraph.type": ["Post"]}
     }
   dgquerysec: |-
     query {
@@ -627,7 +627,7 @@
     }
   qnametouid: |
     {
-      "ComputerOwner_1": "0x123"
+      "ComputerOwner_1": {"uid": "0x123", "dgraph.type": ["ComputerOwner"]}
     }
   dgquerysec: |-
     query {
@@ -677,7 +677,7 @@
     }
   qnametouid: |
     {
-      "Post_1": "0x124"
+      "Post_1": {"uid": "0x124", "dgraph.type": ["Post"]}
     }
   dgquerysec: |-
     query {
@@ -727,7 +727,7 @@
     }
   qnametouid: |
     {
-      "Post_1": "0x456"
+      "Post_1": {"uid": "0x456", "dgraph.type": ["Post"]}
     }
   dgquerysec: |-
     query {
@@ -810,8 +810,8 @@
     }
   qnametouid: |
     {
-      "Post_1": "0x456",
-      "Post_2": "0x789"
+      "Post_1": {"uid": "0x456", "dgraph.type": ["Post"]},
+      "Post_2": {"uid": "0x789", "dgraph.type": ["Post"]}
     }
   dgquerysec: |-
     query {
@@ -885,7 +885,7 @@
     }
   qnametouid: |
     {
-      "Post_1": "0x456"
+      "Post_1": {"uid": "0x456", "dgraph.type": ["Post"]}
     }
   dgquerysec: |-
     query {
@@ -1053,7 +1053,7 @@
     }
   qnametouid: |
     {
-      "State_1": "0x987"
+      "State_1": {"uid": "0x987", "dgraph.type": ["State"]}
     }
   dgquerysec: |-
     query {
@@ -1124,7 +1124,7 @@
     }
   qnametouid: |
     {
-      "State_1": "0x234"
+      "State_1": {"uid": "0x234", "dgraph.type": ["State"]}
     }
   dgquerysec: |-
     query {
@@ -1191,7 +1191,7 @@
     }
   qnametouid: |
     {
-      "House_1": "0x456"
+      "House_1": {"uid": "0x456", "dgraph.type": ["House"]}
     }
   dgquerysec: |-
     query {
@@ -1255,7 +1255,7 @@
     }
   qnametouid: |
     {
-      "Movie_1": "0x456"
+      "Movie_1": {"uid": "0x456", "dgraph.type": ["Movie"]}
     }
   dgquerysec: |-
     query {
@@ -1303,7 +1303,7 @@
     }
   qnametouid: |
     {
-      "Movie_1": "0x456"
+      "Movie_1": {"uid": "0x456", "dgraph.type": ["Movie"]}
     }
   dgquerysec: |-
     query {
@@ -1567,7 +1567,7 @@
     }
   qnametouid: |
     {
-      "Post_1": "0x456"
+      "Post_1": {"uid": "0x456", "dgraph.type": ["Post"]}
     }
   dgquerysec: |-
     query {
@@ -1627,7 +1627,7 @@
     }
   qnametouid: |
     {
-      "Author_1": "0x456"
+      "Author_1": {"uid": "0x456", "dgraph.type": ["Author"]}
     }
   dgquerysec: |-
     query {
@@ -1819,8 +1819,8 @@
     }
   qnametouid: |
     {
-      "Parrot_1": "0x124",
-      "Parrot_2": "0x125"
+      "Parrot_1": {"uid": "0x124", "dgraph.type": ["Parrot"]},
+      "Parrot_2": {"uid": "0x125", "dgraph.type": ["Parrot"]}
     }
   dgquerysec: |-
     query {

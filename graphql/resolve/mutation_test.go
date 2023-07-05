@@ -148,7 +148,7 @@ func benchmark3LevelDeep(num int, b *testing.B) {
 	mut := test.GetMutation(t, op)
 
 	addRewriter := NewAddRewriter()
-	idExistence := make(map[string]string)
+	idExistence := make(map[string]IdResult)
 	for n := 0; n < b.N; n++ {
 		_, _, _ = addRewriter.RewriteQueries(context.Background(), mut)
 		_, _ = addRewriter.Rewrite(context.Background(), mut, idExistence)
@@ -209,7 +209,7 @@ func deleteMutationRewriting(t *testing.T, file string, rewriterFactory func() M
 
 			// -- Act --
 			_, _, _ = rewriterToTest.RewriteQueries(context.Background(), mut)
-			idExistence := make(map[string]string)
+			idExistence := make(map[string]IdResult)
 			upsert, err := rewriterToTest.Rewrite(context.Background(), mut, idExistence)
 			// -- Assert --
 			if tcase.Error != nil || err != nil {
@@ -290,7 +290,7 @@ func mutationRewriting(t *testing.T, file string, rewriterFactory func() Mutatio
 			require.Equal(t, tcase.DGQuery, dgraph.AsString(queries))
 
 			// -- Parse qNameToUID map
-			qNameToUID := make(map[string]string)
+			qNameToUID := make(map[string]IdResult)
 			if tcase.QNameToUID != "" {
 				err = json.Unmarshal([]byte(tcase.QNameToUID), &qNameToUID)
 				require.NoError(t, err)
@@ -320,7 +320,7 @@ func TestMutationQueryRewriting(t *testing.T) {
 		mut         string
 		payloadType string
 		rewriter    func() MutationRewriter
-		idExistence map[string]string
+		idExistence map[string]IdResult
 		assigned    map[string]string
 		result      map[string]interface{}
 	}{
@@ -328,7 +328,7 @@ func TestMutationQueryRewriting(t *testing.T) {
 			mut:         `addPost(input: [{title: "A Post", author: {id: "0x1"}}])`,
 			payloadType: "AddPostPayload",
 			rewriter:    NewAddRewriter,
-			idExistence: map[string]string{"Author_1": "0x1"},
+			idExistence: map[string]IdResult{"Author_1": {Uid: "0x1", Types: []string{"Post"}}},
 			assigned:    map[string]string{"Post_2": "0x4"},
 		},
 		"Update Post ": {

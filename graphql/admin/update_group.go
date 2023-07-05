@@ -38,7 +38,7 @@ func (urw *updateGroupRewriter) RewriteQueries(
 func (urw *updateGroupRewriter) Rewrite(
 	ctx context.Context,
 	m schema.Mutation,
-	idExistence map[string]string) ([]*resolve.UpsertMutation, error) {
+	idExistence map[string]resolve.IdResult) ([]*resolve.UpsertMutation, error) {
 
 	inp := m.ArgValue(schema.InputArgName).(map[string]interface{})
 	setArg := inp["set"]

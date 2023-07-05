@@ -107,7 +107,7 @@ type MutationRewriter interface {
 	// Rewrite rewrites GraphQL mutation m into a Dgraph mutation - that could
 	// be as simple as a single DelNquads, or could be a Dgraph upsert mutation
 	// with a query and multiple mutations guarded by conditions.
-	Rewrite(ctx context.Context, m schema.Mutation, idExistence map[string]string) ([]*UpsertMutation, error)
+	Rewrite(ctx context.Context, m schema.Mutation, idExistence map[string]IdResult) ([]*UpsertMutation, error)
 	// FromMutationResult takes a GraphQL mutation and the results of a Dgraph
 	// mutation and constructs a Dgraph query.  It's used to find the return
 	// value from a GraphQL mutation - i.e. we've run the mutation indicated by m
@@ -319,11 +319,7 @@ func (mr *dgraphResolver) rewriteAndExecute(
 	// 			}
 	//		]
 	// }
-	type res struct {
-		Uid   string   `json:"uid"`
-		Types []string `json:"dgraph.type"`
-	}
-	queryResultMap := make(map[string][]res)
+	queryResultMap := make(map[string][]IdResult)
 	if mutResp != nil {
 		err = json.Unmarshal(mutResp.Json, &queryResultMap)
 	}
@@ -348,18 +344,21 @@ func (mr *dgraphResolver) rewriteAndExecute(
 	// As only Add and Update mutations generate queries using RewriteQueries,
 	// qNameToUID map will be non-empty only in case of Add or Update Mutation.
 	qNameToUID := make(map[string]string)
+	qNameToIdResult := make(map[string]IdResult)
 	for key, result := range queryResultMap {
 		count := 0
 		typ := qNameToType[key]
 		for _, res := range result {
 			if x.HasString(res.Types, typ) {
 				qNameToUID[key] = res.Uid
+				qNameToIdResult[key] = res
 				count++
 			}
 		}
 		if count > 1 {
 			// Found multiple UIDs for query. This should ideally not happen.
 			// This indicates that there are multiple nodes with same XIDs / UIDs. Throw an error.
+			fmt.Println(queryResultMap)
 			err = errors.New(fmt.Sprintf("Found multiple nodes with ID: %s", qNameToUID[key]))
 			gqlErr := schema.GQLWrapLocationf(
 				err, mutation.Location(), "mutation %s failed", mutation.Name())
@@ -368,7 +367,7 @@ func (mr *dgraphResolver) rewriteAndExecute(
 	}
 
 	// Create upserts, delete mutations, update mutations, add mutations.
-	upserts, err = mr.mutationRewriter.Rewrite(ctx, mutation, qNameToUID)
+	upserts, err = mr.mutationRewriter.Rewrite(ctx, mutation, qNameToIdResult)
 
 	if err != nil {
 		return emptyResult(schema.GQLWrapf(err, "couldn't rewrite mutation %s", mutation.Name())),

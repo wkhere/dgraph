@@ -34,7 +34,7 @@ func (mrw *addGroupRewriter) RewriteQueries(
 func (mrw *addGroupRewriter) Rewrite(
 	ctx context.Context,
 	m schema.Mutation,
-	idExistence map[string]string) ([]*resolve.UpsertMutation, error) {
+	idExistence map[string]resolve.IdResult) ([]*resolve.UpsertMutation, error) {
 
 	addGroupInput, _ := m.ArgValue(schema.InputArgName).([]interface{})
 

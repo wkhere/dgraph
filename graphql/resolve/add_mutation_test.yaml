@@ -288,10 +288,10 @@
     }
   qnametouid: |
     {
-      "PostSecret_1":"0x1",
-      "PostSecret_2":"0x2",
-      "PostSecret_3":"0x3",
-      "PostSecret_4":"0x4"
+      "PostSecret_1":{ "uid": "0x1", "dgraph.type":["PostSecret"] },
+      "PostSecret_2":{ "uid": "0x2", "dgraph.type":["PostSecret"] },
+      "PostSecret_3":{ "uid": "0x3", "dgraph.type":["PostSecret"] },
+      "PostSecret_4":{ "uid": "0x4", "dgraph.type":["PostSecret"] }
     }
   dgmutations:
     - setjson: |
@@ -597,7 +597,7 @@
     }
   qnametouid: |-
     {
-      "Country_1":"0x123"
+      "Country_1":{"uid": "0x123", "dgraph.type": ["Country"]}
     }
   dgmutations:
     - setjson: |
@@ -692,7 +692,7 @@
     }
   qnametouid: |-
     {
-      "Author_1": "0x2"
+      "Author_1": {"uid": "0x2", "dgraph.type": ["Author"]}
     }
   dgmutations:
     - setjson: |
@@ -769,7 +769,7 @@
     }
   qnametouid: |-
     {
-      "Country_2": "0x12"
+      "Country_2": {"uid": "0x12", "dgraph.type": ["Country"]}
     }
   dgmutations:
     - setjson: |
@@ -815,8 +815,8 @@
     }
   qnametouid: |-
     {
-      "State_1": "0x11",
-      "Country_2": "0x12"
+      "State_1": {"uid": "0x11", "dgraph.type": ["State"]},
+      "Country_2": {"uid": "0x12", "dgraph.type": ["Country"]}
     }
   error2:
     {
@@ -870,10 +870,10 @@
     }
   qnametouid: |-
     {
-      "State_1": "0x11",
-      "Country_2": "0x12",
-      "State_3": "0x13",
-      "Country_4": "0x14"
+      "State_1": {"uid": "0x11", "dgraph.type": ["State"]},
+      "Country_2": {"uid": "0x12", "dgraph.type": ["Country"]},
+      "State_3": {"uid": "0x13", "dgraph.type": ["State"]},
+      "Country_4": {"uid": "0x14", "dgraph.type": ["Country"]}
     }
   dgquerysec: |-
     query {
@@ -968,8 +968,8 @@
     }
   qnametouid: |-
     {
-      "Book_1": "0x11",
-      "Book_2": "0x11"
+      "Book_1": {"uid": "0x11", "dgraph.type": ["Book"]},
+      "Book_2": {"uid": "0x11", "dgraph.type": ["Book"]}
     }
   dgquerysec: |-
     query {
@@ -1020,7 +1020,7 @@
     }
   qnametouid: |-
     {
-      "Book_2": "0x11"
+      "Book_2": {"uid": "0x11", "dgraph.type": ["Book"]}
     }
   dgquerysec: |-
     query {
@@ -1080,8 +1080,8 @@
     }
   qnametouid: |-
     {
-      "State_1": "0x11",
-      "Country_2": "0x12"
+      "State_1": {"uid": "0x11", "dgraph.type": ["State"]},
+      "Country_2": {"uid": "0x12", "dgraph.type": ["Country"]}
     }
   dgquerysec: |-
     query {
@@ -1161,10 +1161,6 @@
         uid
         dgraph.type
       }
-      LibraryMember_3(func: eq(Member.refID, "101")) {
-        uid
-        dgraph.type
-      }
     }
   dgmutations:
     - setjson: |
@@ -1217,14 +1213,10 @@
         uid
         dgraph.type
       }
-      LibraryMember_3(func: eq(Member.refID, "101")) {
-        uid
-        dgraph.type
-      }
     }
   qnametouid: |-
     {
-      "LibraryMember_3": "0x11"
+      "LibraryMember_2": {"uid": "0x11", "dgraph.type": ["Member", "SportsMember"]}
     }
   error2:
     {
@@ -1265,14 +1257,10 @@
         uid
         dgraph.type
       }
-      LibraryMember_3(func: eq(Member.refID, "101")) {
-        uid
-        dgraph.type
-      }
     }
   qnametouid: |-
     {
-      "LibraryMember_2": "0x11"
+      "LibraryMember_2": {"uid": "0x11", "dgraph.type": ["Member", "LibraryMember"]}
     }
   error2:
     {
@@ -1313,14 +1301,10 @@
         uid
         dgraph.type
       }
-      LibraryMember_3(func: eq(Member.refID, "101")) {
-        uid
-        dgraph.type
-      }
     }
   qnametouid: |-
     {
-      "LibraryMember_1": "0x11"
+      "LibraryMember_1": {"uid": "0x11", "dgraph.type": ["Member", "LibraryMember"]}
     }
   dgquerysec: |-
     query {
@@ -1372,14 +1356,10 @@
         uid
         dgraph.type
       }
-      LibraryMember_3(func: eq(Member.refID, "101")) {
-        uid
-        dgraph.type
-      }
     }
   qnametouid: |-
     {
-      "LibraryMember_3": "0x11"
+      "LibraryMember_2": {"uid": "0x11", "dgraph.type": ["Member", "SportsMember"]}
     }
   error2:
     {
@@ -1427,10 +1407,6 @@
         dgraph.type
       }
       LibraryMember_3(func: eq(Member.refID, "101")) {
-        uid
-        dgraph.type
-      }
-      LibraryMember_4(func: eq(Member.refID, "101")) {
         uid
         dgraph.type
       }
@@ -1503,14 +1479,10 @@
         uid
         dgraph.type
       }
-      LibraryMember_4(func: eq(Member.refID, "101")) {
-        uid
-        dgraph.type
-      }
     }
   qnametouid: |-
     {
-      "LibraryMember_4": "0x11"
+      "LibraryMember_3": {"uid": "0x11", "dgraph.type": ["Member", "SportsMember"]}
     }
   error2:
     {
@@ -1560,15 +1532,10 @@
         uid
         dgraph.type
       }
-      LibraryMember_4(func: eq(Member.refID, "101")) {
-        uid
-        dgraph.type
-      }
     }
   qnametouid: |-
     {
-      "LibraryMember_3": "0x11",
-      "LibraryMember_4": "0x11"
+      "LibraryMember_3": {"uid": "0x11", "dgraph.type": ["Member", "LibraryMember"]}
     }
   dgmutations:
     - setjson: |
@@ -1621,19 +1588,11 @@
         uid
         dgraph.type
       }
-      SportsMember_3(func: eq(Member.refID, "101")) {
+      SportsMember_3(func: eq(Team.teamID, "T01")) {
         uid
         dgraph.type
       }
-      SportsMember_4(func: eq(Team.teamID, "T01")) {
-        uid
-        dgraph.type
-      }
-      SportsMember_5(func: eq(Team.teamID, "T01")) {
-        uid
-        dgraph.type
-      }
-      SportsMember_6(func: eq(Team.teamName, "GraphQL")) {
+      SportsMember_4(func: eq(Team.teamName, "GraphQL")) {
         uid
         dgraph.type
       }
@@ -1655,7 +1614,7 @@
                 "Member",
                 "Team"
             ],
-            "uid": "_:SportsMember_6"
+            "uid": "_:SportsMember_4"
         }
 
 -
@@ -1836,7 +1795,7 @@
     }
   qnametouid: |-
     {
-      "Post_1":"0x123"
+      "Post_1":{"uid": "0x123", "dgraph.type": ["Post"]}
     }
   dgquerysec: |-
     query {
@@ -1931,8 +1890,8 @@
     }
   qnametouid: |-
     {
-      "Post_1":"0x123",
-      "Post_2":"0x124"
+      "Post_1":{"uid": "0x123", "dgraph.type": ["Post"]},
+      "Post_2":{"uid": "0x124", "dgraph.type": ["Post"]}
     }
   dgquerysec: |-
     query {
@@ -2053,8 +2012,8 @@
     }
   qnametouid: |-
     {
-      "Post_1":"0x123",
-      "Post_2":"0x456"
+      "Post_1":{"uid": "0x123", "dgraph.type": ["Post"]},
+      "Post_2":{"uid": "0x456", "dgraph.type": ["Post"]}
     }
   dgquerysec: |-
     query {
@@ -2271,7 +2230,7 @@
     }
   qnametouid: |-
     {
-      "State_1":"0x12"
+      "State_1":{"uid": "0x12", "dgraph.type": ["State"]}
     }
   dgquerysec: |-
     query {
@@ -2339,7 +2298,7 @@
     }
   qnametouid: |-
     {
-      "State_1":"0x12"
+      "State_1":{"uid": "0x12", "dgraph.type": ["State"]}
     }
   dgquerysec: |-
     query {
@@ -2456,7 +2415,7 @@
     }
   qnametouid: |-
     {
-      "Movie_1":"0x2"
+      "Movie_1":{"uid": "0x2", "dgraph.type": ["Movie"]}
     }
   dgmutations:
     - setjson: |
@@ -2820,7 +2779,7 @@
     }
   qnametouid: |-
     {
-      "Post_1": "0x456"
+      "Post_1":{"uid": "0x456", "dgraph.type": ["Post"]}
     }
   dgquerysec: |-
     query {
@@ -2888,7 +2847,7 @@
     }
   qnametouid: |-
     {
-      "State_1": "0x1234"
+      "State_1": {"uid": "0x1234", "dgraph.type": ["State"]}
     }
   dgquerysec: |-
     query {
@@ -3257,7 +3216,7 @@
     }
   qnametouid: |
     {
-      "Teacher_2": "0x987"
+      "Teacher_2": {"uid": "0x987", "dgraph.type": ["Teacher"]}
     }
   dgmutations:
     - setjson: |
@@ -3322,7 +3281,7 @@
     }
   qnametouid: |
     {
-      "Student_3": "0x123"
+      "Student_3": {"uid": "0x123", "dgraph.type": ["Student"]}
     }
   dgmutations:
     - setjson: |
@@ -3462,7 +3421,7 @@
     }
   qnametouid: |
     {
-      "Computer_2": "0x234"
+      "Computer_2": {"uid": "0x234", "dgraph.type": ["Computer"]}
     }
   dgmutations:
     - setjson: |
@@ -3517,7 +3476,7 @@
     }
   qnametouid: |
     {
-      "ComputerOwner_3": "0x123"
+      "ComputerOwner_3": {"uid": "0x123", "dgraph.type": ["ComputerOwner"]}
     }
   dgquerysec: |-
     query {
@@ -3668,7 +3627,7 @@
     }
   qnametouid: |-
     {
-      "District_1": "0x123"
+      "District_1": {"uid": "0x123", "dgraph.type": ["District"]}
     }
   dgmutations:
     - setjson: |
@@ -3906,8 +3865,8 @@
     }
   qnametouid: |
     {
-      "Comment1_2": "0x110",
-      "Comment1_3": "0x111"
+      "Comment1_2": {"uid": "0x110", "dgraph.type": ["Comment1"]},
+      "Comment1_3": {"uid": "0x111", "dgraph.type": ["Comment1"]}
     }
   dgmutations:
     - setjson: |
@@ -4006,8 +3965,8 @@
     }
   qnametouid: |
     {
-      "Comment1_2": "0x110",
-      "Comment1_5": "0x111"
+      "Comment1_2": {"uid": "0x110", "dgraph.type": ["Comment1"]},
+      "Comment1_5": {"uid": "0x111", "dgraph.type": ["Comment1"]}
     }
   dgmutations:
     - setjson: |
@@ -4176,7 +4135,7 @@
     }
   qnametouid: |-
     {
-      "Parrot_1" : "0x123"
+      "Parrot_1" : {"uid": "0x123", "dgraph.type": ["Parrot"]}
     }
   dgmutations:
     - setjson: |
@@ -4677,8 +4636,8 @@
     }
   qnametouid: |
     {
-      "Book_1": "0x117",
-      "Book_2": "0x116"
+      "Book_1": {"uid": "0x117", "dgraph.type": ["Book"]},
+      "Book_2": {"uid": "0x116", "dgraph.type": ["Book"]}
     }
   dgmutations:
     - setjson: |
@@ -4749,7 +4708,7 @@
     }
   qnametouid: |
     {
-      "Book_2": "0x119"
+      "Book_2": {"uid": "0x119", "dgraph.type": ["Book"]}
     }
   dgquerysec: |-
     query {

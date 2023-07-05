@@ -105,6 +105,21 @@ type xidMetadata struct {
 	seenUIDs map[string]bool
 }
 
+type IdResult struct {
+	Uid   string   `json:"uid"`
+	Types []string `json:"dgraph.type"`
+}
+
+func (i *IdResult) IsTypeIn(typ string) bool {
+	for _, t := range i.Types {
+		if t == typ {
+			return true
+		}
+	}
+
+	return false
+}
+
 // A mutationBuilder can build a json mutation []byte from a mutationFragment
 type mutationBuilder func(frag *mutationFragment) ([]byte, error)
 
@@ -430,7 +445,7 @@ func (urw *UpdateRewriter) RewriteQueries(
 func (arw *AddRewriter) Rewrite(
 	ctx context.Context,
 	m schema.Mutation,
-	idExistence map[string]string) ([]*UpsertMutation, error) {
+	idExistence map[string]IdResult) ([]*UpsertMutation, error) {
 
 	mutationType := Add
 	mutatedType := m.MutatedType()
@@ -520,7 +535,7 @@ func (arw *AddRewriter) Rewrite(
 			// These are formed while doing Upserts with Add Mutations. These also contain
 			// any related auth queries.
 			queries = append(queries, RewriteUpsertQueryFromMutation(
-				m, authRw, upsertVar, upsertVar, idExistence[upsertVar])...)
+				m, authRw, upsertVar, upsertVar, idExistence[upsertVar].Uid)...)
 			// Add upsert condition to ensure that the upsert takes place only when the node
 			// exists and has proper auth permission.
 			// Example condition:  cond: "@if(gt(len(State1), 0))"
@@ -587,7 +602,7 @@ func (arw *AddRewriter) Rewrite(
 func (urw *UpdateRewriter) Rewrite(
 	ctx context.Context,
 	m schema.Mutation,
-	idExistence map[string]string) ([]*UpsertMutation, error) {
+	idExistence map[string]IdResult) ([]*UpsertMutation, error) {
 	mutatedType := m.MutatedType()
 
 	varGen := urw.VarGen
@@ -1057,7 +1072,7 @@ func removeNodeReference(m schema.Mutation, authRw *authRewriter,
 func (drw *deleteRewriter) Rewrite(
 	ctx context.Context,
 	m schema.Mutation,
-	idExistence map[string]string) ([]*UpsertMutation, error) {
+	idExistence map[string]IdResult) ([]*UpsertMutation, error) {
 
 	if m.MutationType() != schema.DeleteMutation {
 		return nil, errors.Errorf(
@@ -1351,7 +1366,7 @@ func rewriteObject(
 	varGen *VariableGenerator,
 	obj map[string]interface{},
 	xidMetadata *xidMetadata,
-	idExistence map[string]string,
+	idExistence map[string]IdResult,
 	mutationType MutationType) (*mutationFragment, string, []error) {
 
 	// There could be the following cases:
@@ -1430,11 +1445,16 @@ func rewriteObject(
 				//    node added during the mutation rewriting. This is handled by adding the new blank UID
 				//    to existenceQueryResult.
 
-				interfaceTyp, interfaceVar := interfaceVariable(typ, varGen, xid.Name(), xidString)
-
 				// Get whether node with XID exists or not from existenceQueriesResults
-				_, interfaceUidExist := idExistence[interfaceVar]
-				typUid, typUidExist := idExistence[variable]
+				typUidResult, uidExists := idExistence[variable]
+				typUidExist := uidExists && typUidResult.IsTypeIn(typ.DgraphName())
+				typUid := typUidResult.Uid
+
+				interfaceUidExist := false
+				interfaceTyp, isInherited := typ.FieldOriginatedFrom(xid.Name())
+				if uidExists && isInherited {
+					interfaceUidExist = typUidResult.IsTypeIn(interfaceTyp.DgraphName())
+				}
 
 				if interfaceUidExist || typUidExist {
 					// node with XID exists. This is a reference.
@@ -1529,7 +1549,7 @@ func rewriteObject(
 						// i.e. idExistence[person1]= _:person1
 						// idExistence[person2]= _:person1
 						for _, xidVariable := range xidVariables {
-							idExistence[xidVariable] = fmt.Sprintf("_:%s", variable)
+							idExistence[xidVariable] = IdResult{Uid: fmt.Sprintf("_:%s", variable), Types: []string{typ.DgraphName()}}
 						}
 					}
 					nonExistingXIDs++
@@ -1892,18 +1912,6 @@ func existenceQueries(
 					query := checkXIDExistsQuery(variable, xidString, xid.Name(), typ, nil)
 					ret = append(ret, query)
 					retTypes = append(retTypes, typ.DgraphName())
-
-					// Add one more existence query if given xid field is inherited from interface and has
-					// interface argument set. This is added to ensure that this xid is unique across all the
-					// implementation of the interface.
-					interfaceTyp, varInterface := interfaceVariable(typ, varGen,
-						xid.Name(), xidString)
-					if interfaceTyp != nil {
-						queryInterface := checkXIDExistsQuery(varInterface, xidString, xid.Name(),
-							typ, interfaceTyp)
-						ret = append(ret, queryInterface)
-						retTypes = append(retTypes, interfaceTyp.DgraphName())
-					}
 					// Don't return just over here as there maybe more nodes in the children tree.
 				}
 			}
@@ -2030,7 +2038,7 @@ func rewriteUnionField(
 	varGen *VariableGenerator,
 	obj map[string]interface{},
 	xidMetadata *xidMetadata,
-	existenceQueriesResult map[string]string,
+	existenceQueriesResult map[string]IdResult,
 	mutationType MutationType) (*mutationFragment, string, []error) {
 
 	var newtyp schema.Type

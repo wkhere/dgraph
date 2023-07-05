@@ -467,7 +467,7 @@ func mutationQueryRewriting(t *testing.T, sch string, authMeta *testutil.AuthMet
 		gqlMut      string
 		rewriter    func() MutationRewriter
 		assigned    map[string]string
-		idExistence map[string]string
+		idExistence map[string]IdResult
 		result      map[string]interface{}
 		dgQuery     string
 	}{
@@ -486,7 +486,7 @@ func mutationQueryRewriting(t *testing.T, sch string, authMeta *testutil.AuthMet
 			  }`,
 			rewriter:    NewAddRewriter,
 			assigned:    map[string]string{"Ticket_2": "0x4"},
-			idExistence: map[string]string{"Column_1": "0x1"},
+			idExistence: map[string]IdResult{"Column_1": IdResult{Uid: "0x1"}},
 			dgQuery: `query {
   AddTicketPayload.ticket(func: uid(TicketRoot)) {
     Ticket.id : uid
@@ -534,7 +534,7 @@ func mutationQueryRewriting(t *testing.T, sch string, authMeta *testutil.AuthMet
 				}
 			  }`,
 			rewriter:    NewUpdateRewriter,
-			idExistence: map[string]string{},
+			idExistence: map[string]IdResult{},
 			result: map[string]interface{}{
 				"updateTicket": []interface{}{map[string]interface{}{"uid": "0x4"}}},
 			dgQuery: `query {
@@ -663,7 +663,7 @@ func deleteQueryRewriting(t *testing.T, sch string, authMeta *testutil.AuthMeta,
 
 			// -- Act --
 			_, _, _ = rewriterToTest.RewriteQueries(context.Background(), mut)
-			idExistence := make(map[string]string)
+			idExistence := make(map[string]IdResult)
 			upsert, err := rewriterToTest.Rewrite(ctx, mut, idExistence)
 
 			// -- Assert --
