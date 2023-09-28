@@ -23,6 +23,7 @@ import (
 	"sync/atomic"
 	"time"
 
+	"github.com/golang/glog"
 	"github.com/pkg/errors"
 	ostats "go.opencensus.io/stats"
 	tag "go.opencensus.io/tag"
@@ -249,6 +250,7 @@ func (n *node) proposeAndWait(ctx context.Context, proposal *pb.Proposal) (perr 
 				// We arrived here by a call to n.Proposals.Done().
 				return err
 			case <-ctx.Done():
+				glog.Warningf("Context expired while processing proposal %v", ctx.Err())
 				return ctx.Err()
 			case <-timer.C:
 				if atomic.LoadUint32(&pctx.Found) > 0 {
@@ -258,6 +260,7 @@ func (n *node) proposeAndWait(ctx context.Context, proposal *pb.Proposal) (perr 
 					cancel()
 				}
 			case <-cctx.Done():
+				glog.Warningf("Internal context expired while processing proposal %v", cctx.Err())
 				return errInternalRetry
 			}
 		}
