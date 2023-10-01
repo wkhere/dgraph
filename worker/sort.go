@@ -21,6 +21,7 @@ import (
 	"encoding/hex"
 	"sort"
 	"strings"
+	"time"
 
 	"github.com/golang/glog"
 	"github.com/pkg/errors"
@@ -511,7 +512,34 @@ func processSort(ctx context.Context, ts *pb.SortMessage) (*pb.SortResult, error
 	cctx, cancel := context.WithCancel(ctx)
 	defer cancel()
 
-	r := sortWithIndex(cctx, ts)
+	resCh := make(chan *sortresult, 2)
+	go func() {
+		select {
+		case <-time.After(3 * time.Millisecond):
+			// Wait between ctx chan and time chan.
+		case <-ctx.Done():
+			resCh <- &sortresult{err: ctx.Err()}
+			return
+		}
+		r := sortWithoutIndex(cctx, ts)
+		resCh <- r
+	}()
+
+	go func() {
+		sr := sortWithIndex(cctx, ts)
+		resCh <- sr
+	}()
+
+	r := <-resCh
+	if r.err == nil {
+		cancel()
+		// wait for other goroutine to get cancelled
+		<-resCh
+	} else {
+		span.Annotatef(nil, "processSort error: %v", r.err)
+		r = <-resCh
+	}
+
 	if r.err != nil {
 		return nil, r.err
 	}
